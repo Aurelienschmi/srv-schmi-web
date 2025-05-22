@@ -6,5 +6,3 @@ CREATE TABLE `palworld_sessions` (
   `session_duration` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
-
-

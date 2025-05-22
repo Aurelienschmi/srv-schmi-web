@@ -1,0 +1,2 @@
+# Affiche la page 404 personnalisée
+ErrorDocument 404 /src/404.php

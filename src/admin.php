@@ -1,7 +1,6 @@
 <?php
-
-include 'db.php';
-include 'auth.php';
+include_once __DIR__ . '/../config/db.php';
+include_once __DIR__ . '/../config/auth.php';
 if (!user_has_access('admin.php')) {
     header('Location: acces_refuse.php');
     exit();
@@ -80,132 +79,54 @@ if (isset($_GET['edit'])) {
 <head>
     <meta charset="UTF-8">
     <title>Admin - Gestion des utilisateurs</title>
-    <style>
-        body {
-            background: #555353;
-            font-family: Arial, sans-serif;
-            color: #333;
-        }
-        .admin-container {
-            background: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            max-width: 500px;
-            margin: 60px auto;
-            padding: 32px 28px 24px 28px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            box-sizing: border-box;
-            position: relative;
-        }
-        h1 {
-            color: #ff8800;
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 18px;
-        }
-        th, td {
-            padding: 8px 6px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-        }
-        th {
-            background: #f7f7f7;
-        }
-        .actions form {
-            display: inline;
-        }
-        input[type="text"], input[type="password"] {
-            width: 90%;
-            padding: 8px 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background: #f7f7f7;
-            font-size: 15px;
-        }
-        button, .btn {
-            background: #ff8800;
-            color: #fff;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-right: 4px;
-            text-decoration: none;
-            display: inline-block;
-        }
-        button:hover, .btn:hover {
-            background: #e67600;
-        }
-        .message {
-            color: #fff;
-            background: #ff8800;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-        .logout {
-            position: absolute;
-            top: 20px;
-            right: 28px;
-            margin: 0;
-        }
-        .pages-list {
-            margin-bottom: 10px;
-        }
-        .pages-list label {
-            display: inline-block;
-            margin-right: 10px;
-            margin-bottom: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="/public/styles.css">
 </head>
 <body>
     <div class="admin-container">
-        <div class="logout">
-            <a href="logout.php" class="btn">Déconnexion</a>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div>
+                <a href="index.php" class="btn">Accueil</a>
+            </div>
+            <div class="logout">
+                <a href="logout.php" class="btn">Déconnexion</a>
+            </div>
         </div>
         <h1>Gestion des utilisateurs</h1>
-        <p>Bienvenue <?= htmlspecialchars($_SESSION['user']) ?></p>
+        <p>Bienvenue <strong><?= htmlspecialchars($_SESSION['user']) ?></strong></p>
         <?php if ($message): ?>
             <div class="message"><?= htmlspecialchars($message) ?></div>
         <?php endif; ?>
 
-        <!-- Formulaire d'ajout ou d'édition -->
-        <form method="post" style="margin-bottom:18px;">
-            <?php if ($editUser): ?>
-                <input type="hidden" name="action" value="edit">
-                <input type="hidden" name="id" value="<?= $editUser['id'] ?>">
-                <input type="text" name="username" placeholder="Nom d'utilisateur" value="<?= htmlspecialchars($editUser['username']) ?>" required>
-                <input type="password" name="password" placeholder="Nouveau mot de passe (laisser vide pour ne pas changer)">
-            <?php else: ?>
-                <input type="hidden" name="action" value="add">
-                <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-                <input type="password" name="password" placeholder="Mot de passe" required>
-            <?php endif; ?>
-            <div class="pages-list">
-                <strong>Pages autorisées :</strong><br>
-                <?php foreach ($pages as $page): ?>
-                    <label>
-                        <input type="checkbox" name="pages[]" value="<?= $page['id'] ?>"
-                            <?= in_array($page['id'], $userPages) ? 'checked' : '' ?>>
-                        <?= htmlspecialchars($page['name']) ?>
-                    </label>
-                <?php endforeach; ?>
-            </div>
-            <button><?= $editUser ? 'Modifier' : 'Ajouter' ?></button>
-            <?php if ($editUser): ?>
-                <a href="admin.php" class="btn" style="background:#aaa;">Annuler</a>
-            <?php endif; ?>
-        </form>
+<form method="post" style="text-align:center;">
+    <?php if ($editUser): ?>
+        <input type="hidden" name="action" value="edit">
+        <input type="hidden" name="id" value="<?= $editUser['id'] ?>">
+        <input type="text" name="username" placeholder="Nom d'utilisateur" value="<?= htmlspecialchars($editUser['username']) ?>" required>
+        <input type="password" name="password" placeholder="Nouveau mot de passe (laisser vide pour ne pas changer)">
+    <?php else: ?>
+        <input type="hidden" name="action" value="add">
+        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+        <input type="password" name="password" placeholder="Mot de passe" required>
+    <?php endif; ?>
+    <div class="pages-list-wrapper">
+        <div class="pages-list">
+            <strong>Pages autorisées :</strong><br>
+            <?php foreach ($pages as $page): ?>
+                <label>
+                    <input type="checkbox" name="pages[]" value="<?= $page['id'] ?>"
+                        <?= in_array($page['id'], $userPages) ? 'checked' : '' ?>>
+                    <?= htmlspecialchars($page['name']) ?>
+                </label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div>
+        <button class="btn" style="margin-top:18px;"><?= $editUser ? 'Modifier' : 'Ajouter' ?></button>
+        <?php if ($editUser): ?>
+            <a href="admin.php" class="btn" style="background:#aaa;">Annuler</a>
+        <?php endif; ?>
+    </div>
+</form>
 
         <!-- Tableau des utilisateurs -->
         <table>
@@ -223,7 +144,7 @@ if (isset($_GET['edit'])) {
                         <form method="post" style="display:inline;">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="id" value="<?= $user['id'] ?>">
-                            <button onclick="return confirm('Supprimer cet utilisateur ?');">Supprimer</button>
+                            <button class="btn" onclick="return confirm('Supprimer cet utilisateur ?');">Supprimer</button>
                         </form>
                     </td>
                 </tr>

@@ -1,0 +1,398 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: white;
+    text-align: center;
+    padding: 30px;
+}
+
+.server {
+    background-color: #2e2e2e;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.button {
+    background-color: #2196F3;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    margin: 10px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+}
+
+.button:hover {
+    background-color: #1976D2;
+}
+
+.home-btn {
+    display: inline-block;
+    margin-top: 18px;
+    background: #ff8800;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.home-btn:hover {
+    background: #e67600;
+}
+
+.login-container {
+    background: #2e2e2e;
+    border-radius: 12px;
+    max-width: 350px;
+    margin: 60px auto;
+    padding: 32px 28px 24px 28px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    box-sizing: border-box;
+}
+
+.login-container h2 {
+    color: #ff8800;
+    margin-bottom: 24px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 90%;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #1e1e1e;
+    color: #fff;
+    font-size: 16px;
+}
+
+.login-container button {
+    width: 100%;
+    background: #ff8800;
+    color: #fff;
+    border: none;
+    padding: 12px 0;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.login-container button:hover {
+    background: #e67600;
+}
+
+.error {
+    color: #fff;
+    background: #ff5e00;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+        .admin-container {
+            background: #2e2e2e;
+            border-radius: 12px;
+            max-width: 700px;
+            margin: 40px auto 0 auto;
+            padding: 32px 28px 24px 28px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.6);
+            box-sizing: border-box;
+        }
+        .admin-container h1 {
+            color: #ff8800;
+            margin-bottom: 24px;
+        }
+        .admin-container table {
+            width: 100%;
+            margin-top: 24px;
+            border-collapse: collapse;
+            background: #232323;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .admin-container th, .admin-container td {
+            padding: 12px 8px;
+            border-bottom: 1px solid #333;
+        }
+        .admin-container th {
+            background: #222;
+            color: #ff8800;
+        }
+        .admin-container tr:last-child td {
+            border-bottom: none;
+        }
+        .admin-container .btn {
+            background: #ff8800;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+            display: inline-block;
+        }
+        .admin-container .btn:hover {
+            background: #e67600;
+        }
+        .admin-container .logout {
+            text-align: right;
+            margin-bottom: 10px;
+        }
+        .admin-container .message {
+            color: #fff;
+            background: #2196F3;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .admin-container .pages-list {
+            margin: 12px 0 18px 0;
+            text-align: left;
+        }
+        .admin-container .pages-list label {
+            margin-right: 18px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+        .admin-container input[type="text"],
+        .admin-container input[type="password"] {
+            width: 220px;
+            padding: 8px 10px;
+            margin-bottom: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background: #1e1e1e;
+            color: #fff;
+            font-size: 15px;
+        }
+        .admin-container form {
+            margin-bottom: 0;
+        }
+        .admin-container .actions {
+            white-space: nowrap;
+        }
+        .admin-container .pages-list {
+    margin: 18px 0 22px 0;
+    text-align: left;
+    background: #232323;
+    border-radius: 6px;
+    padding: 14px 18px 10px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: inline-block;
+}
+
+.admin-container .pages-list strong {
+    color: #ff8800;
+    font-size: 1.08em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.admin-container .pages-list label {
+    margin-right: 18px;
+    display: inline-block;
+    margin-bottom: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    color: #fff;
+}
+
+.admin-container .pages-list input[type="checkbox"] {
+    accent-color: #ff8800;
+    margin-right: 6px;
+    transform: scale(1.15);
+    vertical-align: middle;
+}
+.schmischmi-container {
+    max-width: 520px;
+    margin: 60px auto;
+    background: #2e2e2e;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+    padding: 36px 18px 28px 18px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.schmischmi-container h1 {
+    color: #ff8800;
+    margin-bottom: 24px;
+}
+
+.schmischmi-links {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.link-card {
+    background: #232323;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    padding: 18px 0;
+    margin: 0 auto;
+    width: 90%;
+    transition: box-shadow 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.link-card .main-link {
+    color: #ff8800;
+    font-size: 1.15em;
+    text-decoration: none;
+    font-weight: bold;
+    flex: 1;
+    text-align: left;
+    padding-left: 18px;
+}
+
+.link-card .main-link:hover {
+    color: #e67600;
+    text-decoration: underline;
+}
+
+.crud-links {
+    display: flex;
+    gap: 8px;
+    margin-right: 18px;
+}
+
+.crud-links a {
+    color: #888;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.crud-links a:hover {
+    color: #ff8800;
+}
+
+.add-link-btn {
+    background: #ff8800;
+    color: #fff;
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background 0.2s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.add-link-btn:hover {
+    background: #e67600;
+}
+
+.user-info {
+    color: #fff;
+    font-size: 1em;
+    font-weight: normal;
+    margin-right: 10px;
+}
+.add-link-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.add-link-form label {
+    color: #ffffff;
+    font-weight: bold;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+.add-link-form input[type="text"],
+.add-link-form input[type="url"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #1e1e1e;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.add-link-form .btn,
+.add-link-form a.btn {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    margin-right: 0;
+}
+
+.add-link-form a.btn {
+    background: #aaa !important;
+    color: #fff !important;
+    margin-top: 10px;
+}
+
+.add-link-form a.btn:hover {
+    background: #888 !important;
+}
+
+.stats-palworld {
+    margin-top: 30px;
+    flex-direction: column;
+    align-items: center !important;
+    width: 100%;
+    text-align: center;
+}
+
+.stats-palworld h2 {
+    color: #ff8800;
+    margin-bottom: 12px;
+}
+
+.stats-palworld ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stats-palworld li {
+    margin: 4px 0;
+}
+
+.countdown {
+    font-size: 1.5em;
+    color: #ff8800;
+    font-weight: bold;
+}
