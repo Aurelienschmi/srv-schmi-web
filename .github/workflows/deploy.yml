@@ -1,0 +1,31 @@
+name: Deploy PHP site to Apache server
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H "${{ secrets.HOST }}" >> ~/.ssh/known_hosts
+
+    - name: Rsync files to server
+      run: |
+        rsync -avz --delete \
+          --exclude=".git*" \
+          --exclude="*.md" \
+          ./ ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.TARGET_PATH || '/var/www/html' }}
+
+    - name: Restart Apache
+      run: |
+        ssh ${{ secrets.USER }}@${{ secrets.HOST }} "sudo systemctl restart apache2"
