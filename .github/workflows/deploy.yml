@@ -28,5 +28,5 @@ jobs:
 
     - name: Restart Apache
       run: |
-        ssh -i ~/.ssh/id_rsa -tt -p ${{ secrets.SSH_PORT }} ${{ secrets.USER }}@${{ secrets.HOST }} "sudo systemctl restart apache2"
+        ssh -i ~/.ssh/id_rsa -tt -p ${{ secrets.SSH_PORT }} ${{ secrets.USER }}@${{ secrets.HOST }} "sudo /bin/systemctl restart apache2"
 
