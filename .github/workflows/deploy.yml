@@ -24,6 +24,7 @@ jobs:
         rsync -avz -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT }}" --delete \
           --exclude=".git*" \
           --exclude="*.md" \
+          --exclude=".env" \
           ./ ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.TARGET_PATH || '/var/www/html' }}
 
     - name: Restart Apache
