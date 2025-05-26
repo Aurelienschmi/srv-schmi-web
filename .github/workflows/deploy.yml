@@ -12,7 +12,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Setup SSH key
+    - name: Setup SSH key and known_hosts
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
@@ -21,11 +21,12 @@ jobs:
 
     - name: Rsync files to server
       run: |
-        rsync -avz -e "ssh -p ${{ secrets.SSH_PORT }}" --delete \
+        rsync -avz -e "ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT }}" --delete \
           --exclude=".git*" \
           --exclude="*.md" \
           ./ ${{ secrets.USER }}@${{ secrets.HOST }}:${{ secrets.TARGET_PATH || '/var/www/html' }}
 
     - name: Restart Apache
       run: |
-        ssh -tt -p ${{ secrets.SSH_PORT }} ${{ secrets.USER }}@${{ secrets.HOST }} "sudo systemctl restart apache2"
+        ssh -i ~/.ssh/id_rsa -tt -p ${{ secrets.SSH_PORT }} ${{ secrets.USER }}@${{ secrets.HOST }} "sudo systemctl restart apache2"
+
