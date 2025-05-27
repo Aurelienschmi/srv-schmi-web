@@ -25,7 +25,7 @@ session_start();
                 <a class="main-link" href="login.php">Login</a>
             </div>
             <div class="link-card">
-                <a class="main-link" href="csgo.php">CSGO</a>
+                <a class="main-link" href="csgo/csgo.php">CSGO</a>
             </div>
             <div class="link-card">
                 <a class="main-link" href="palworld.php">Palworld</a>

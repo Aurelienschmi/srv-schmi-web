@@ -1,0 +1,5 @@
+CREATE TABLE `matchmaking_queue` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `user_id` INT NOT NULL UNIQUE,
+  `joined_at` DATETIME DEFAULT CURRENT_TIMESTAMP
+);

@@ -15,15 +15,14 @@
     DB_PASS=motdepasse
     ```
 
-- **Laragon** installé pour lancer l'application web facilement sous Windows.  
-  [Télécharger Laragon](https://laragon.org/download/)
+
 
 ## Étapes d'installation
 
 ### 1. Cloner le dépôt
 
 ```sh
-git clone https://github.com/votre-utilisateur/srv-schmi-web.git
+git clone https://github.com/Aurelienschmi/srv-schmi-web
 cd srv-schmi-web
 ```
 
@@ -60,28 +59,37 @@ mysql -u root -p -h 127.0.0.1 srvschmi
 SHOW TABLES;
 ```
 
-### 5. Lancer l'application web avec Laragon
+### 5. Lancer le serveur web avec XAMPP
 
-1. **Déplacez le dossier du projet dans le dossier `www` de Laragon**  
-   Exemple : `C:\laragon\www\srv-schmi-web`
+### Prérequis
 
-2. **Démarrez Laragon** et assurez-vous que Apache/Nginx et MySQL/MariaDB sont lancés.
+- [XAMPP](https://www.apachefriends.org/fr/index.html) installé sur votre machine Windows.
+- Le dossier du projet copié dans le dossier `htdocs` de XAMPP (exemple : `C:\xampp\htdocs\srv-schmi-web`).
 
-3. **Accédez à l'application**  
-   Ouvrez votre navigateur et allez à l'adresse :  
-   ```
-   http://srv-schmi-web.test
-   ```
-   ou  
+### Étapes
+
+1. **Démarrer XAMPP**  
+   Ouvre le panneau de contrôle XAMPP (`xampp-control.exe`), puis démarre les modules **Apache** et **MySQL**.
+
+2. **Accéder à l’application**  
+   Ouvre ton navigateur et va à l’adresse :  
    ```
    http://localhost/srv-schmi-web
    ```
-   selon la configuration de Laragon.
+   ou  
+   ```
+   http://127.0.0.1/srv-schmi-web
+   ```
 
-> **Astuce :**  
-> Vous pouvez configurer un VirtualHost personnalisé dans Laragon pour accéder à votre projet via une URL conviviale.
+3. **Vérifier la connexion à la base de données**  
+   Assure-toi que le fichier `.env` est bien configuré avec les bons identifiants MySQL/MariaDB (voir section précédente).
+
+> **Astuce :**  
+> Si tu modifies le code, tu peux simplement recharger la page dans le navigateur.  
+> Pour voir les erreurs PHP, vérifie que l’affichage des erreurs est activé dans `php.ini` (`display_errors = On`).
 
 ---
+
 
 ## Statut du serveur Palworld (`palworld_status.json`)
 

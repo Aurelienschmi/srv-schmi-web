@@ -21,4 +21,6 @@ INSERT INTO pages (name, path) VALUES
 
 -- Insertion d'un utilisateur admin par défaut (mdp : azerty, hashé en SHA2-256)
 INSERT INTO users (username, password, role) VALUES
-('admin', SHA2('azerty', 256), 'admin');
+('admin', SHA2('azerty', 256), 'admin'),
+('test1', SHA2('azer', 256), 'user'),
+('test2', SHA2('azer', 256), 'user');

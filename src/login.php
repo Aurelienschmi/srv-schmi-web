@@ -5,8 +5,10 @@ include_once __DIR__ . '/../config/db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ? AND password = SHA2(?, 256)");
     $stmt->execute([$_POST['username'], $_POST['password']]);
-    if ($stmt->fetch()) {
-        $_SESSION['user'] = $_POST['username'];
+    $user = $stmt->fetch();
+    if ($user) {
+        $_SESSION['user'] = $user['username'];
+        $_SESSION['user_id'] = $user['id'];
         header('Location: index.php');
         exit();
     } else {

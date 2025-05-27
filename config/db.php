@@ -26,3 +26,9 @@ try {
     error_log($e->getMessage(), 3, __DIR__ . '/../logs/db_errors.log');
     die('Erreur de connexion à la base de données.');
 }
+
+// Ajout de la fonction pour récupérer la connexion PDO
+function get_db_connection() {
+    global $pdo;
+    return $pdo;
+}

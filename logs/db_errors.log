@@ -1,0 +1,1 @@
+SQLSTATE[HY000] [1049] Unknown database 'srv'SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client [auth_gssapi_client]SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client [auth_gssapi_client]SQLSTATE[HY000] [2054] The server requested authentication method unknown to the client [auth_gssapi_client]
