@@ -54,6 +54,11 @@ if (count($maps_left) == 1) {
     $side_picker = (rand(0, 1) === 0) ? $match['player1_id'] : $match['player2_id'];
     $stmt = $pdo->prepare("UPDATE matches SET maps_left = ?, selected_map = ?, status = 'ready', side_picker = ? WHERE id = ?");
     $stmt->execute([json_encode($maps_left), $maps_left[0], $side_picker, $match_id]);
+
+        // === Appel du script bash pour lancer le serveur avec la bonne map ===
+    $selected_map = escapeshellarg($maps_left[0]);
+    exec("/opt/csgo-server/script/start.sh $selected_map > /dev/null 2>&1 &");
+    
     echo json_encode(['success' => true, 'message' => "La map sélectionnée est : " . $maps_left[0], 'finished' => true]);
     exit();
 } else {
