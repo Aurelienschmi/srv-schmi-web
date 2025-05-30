@@ -31,4 +31,6 @@ jobs:
       run: |
         ssh -i ~/.ssh/id_rsa -tt -p ${{ secrets.SSH_PORT }} ${{ secrets.USER }}@${{ secrets.HOST }} "sudo /usr/local/bin/restart-apache.sh"
 
-
+    - name: Setup database
+      run: |
+        ssh -i ~/.ssh/id_rsa -tt -p ${{ secrets.SSH_PORT }} ${{ secrets.USER }}@${{ secrets.HOST }} "bash ${{ secrets.TARGET_PATH || '/var/www/html' }}/data/setup_db.sh"

@@ -14,11 +14,6 @@ $map_id = $data['map_id'] ?? '';
 
 $pdo = get_db_connection();
 
-$match_id = intval($data['match_id'] ?? 0);
-$map_id = $data['map_id'] ?? '';
-
-$pdo = get_db_connection();
-
 // Récupère le match
 $stmt = $pdo->prepare("SELECT * FROM matches WHERE id = ?");
 $stmt->execute([$match_id]);
@@ -37,8 +32,8 @@ if ($match['current_turn'] != $user_id) {
 
 // Récupère les maps restantes
 $maps_left = json_decode($match['maps_left'], true);
-if (!in_array($map_id, $maps_left)) {
-    echo json_encode(['success' => false, 'message' => "Map déjà bannie !"]);
+if (!is_array($maps_left) || !in_array($map_id, $maps_left)) {
+    echo json_encode(['success' => false, 'message' => "Map déjà bannie ou invalide !"]);
     exit();
 }
 
@@ -48,18 +43,29 @@ $maps_left = array_values(array_diff($maps_left, [$map_id]));
 // Passe le tour à l'autre joueur
 $next_turn = ($user_id == $match['player1_id']) ? $match['player2_id'] : $match['player1_id'];
 
+// Tableau de correspondance map => workshop ID
+$maps_workshop = [
+    'aim_map'         => '3084291314',
+    'aim_map_cartoon' => '3218219558',
+    'aim_centro'      => '3243596725',
+    'aim_chess'       => '3324226065',
+    'awp_lego'        => '3146105097',
+];
+
 // Si une seule map reste, sélectionne-la, passe le match à "ready" et tire au sort le side_picker
 if (count($maps_left) == 1) {
-    // Tirage au sort du joueur qui choisira le côté
+    $selected_map_key = $maps_left[0];
     $side_picker = (rand(0, 1) === 0) ? $match['player1_id'] : $match['player2_id'];
     $stmt = $pdo->prepare("UPDATE matches SET maps_left = ?, selected_map = ?, status = 'ready', side_picker = ? WHERE id = ?");
-    $stmt->execute([json_encode($maps_left), $maps_left[0], $side_picker, $match_id]);
+    $stmt->execute([json_encode($maps_left), $selected_map_key, $side_picker, $match_id]);
 
-        // === Appel du script bash pour lancer le serveur avec la bonne map ===
-    $selected_map = escapeshellarg($maps_left[0]);
-    exec("/opt/csgo-server/script/start.sh $selected_map > /dev/null 2>&1 &");
-    
-    echo json_encode(['success' => true, 'message' => "La map sélectionnée est : " . $maps_left[0], 'finished' => true]);
+    // Lancer le serveur avec l'ID workshop correspondant
+    if (isset($maps_workshop[$selected_map_key])) {
+        $workshop_id = escapeshellarg($maps_workshop[$selected_map_key]);
+        exec("sudo systemctl start csgo-server@$workshop_id 2>&1", $output, $result);
+    }
+
+    echo json_encode(['success' => true, 'message' => "La map sélectionnée est : " . $selected_map_key, 'finished' => true]);
     exit();
 } else {
     // Sinon, update maps_left et current_turn
