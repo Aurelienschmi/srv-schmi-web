@@ -53,7 +53,6 @@ $pdo = get_db_connection();
             fetch('/src/api/match_status.php?match_id=<?= $match_id ?>')
                 .then(r => r.json())
                 .then(data => {
-                    // Affichage des pseudos avec indication "toi"
                     document.getElementById('player1').innerText = data.player1_name + (data.player1_id == <?= $user_id ?> ? " (toi)" : "");
                     document.getElementById('player2').innerText = data.player2_name + (data.player2_id == <?= $user_id ?> ? " (toi)" : "");
                     document.getElementById('img1').src = data.player1_img;
@@ -69,6 +68,7 @@ $pdo = get_db_connection();
                     document.getElementById('wait-timer').innerText = "Erreur de connexion au serveur.";
                 });
         }
+
         function startCountdown() {
             let count = 5;
             const el = document.getElementById('countdown');
@@ -79,10 +79,21 @@ $pdo = get_db_connection();
                 el.innerText = "Début dans " + count + " secondes...";
                 if (count <= 0) {
                     clearInterval(interval);
-                    window.location.href = "ban_maps.php?match_id=<?= $match_id ?>";
+                    // Vérifie s'il y a un match en cours avant de démarrer
+                    fetch('/src/api/csgo_match_status.php')
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.running) {
+                                el.innerText = "Un match est déjà en cours. Merci de patienter...";
+                                setTimeout(startCountdown, 3000); // Réessaie dans 3 secondes
+                            } else {
+                                window.location.href = "ban_maps.php?match_id=<?= $match_id ?>";
+                            }
+                        });
                 }
             }, 1000);
         }
+
         function quitWaitingRoom() {
             fetch('/src/api/matchmaking.php', {
                 method: 'POST',
@@ -92,6 +103,7 @@ $pdo = get_db_connection();
                 window.location.href = "queu.php";
             });
         }
+
         window.onload = function() {
             pollMatch();
             pollInterval = setInterval(pollMatch, 1000);
